@@ -1,13 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Card, CardHeader, CardContent } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { CommandMenu } from "../components/command-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { CommandMenu } from "@/components/command-menu";
 import { Metadata } from "next";
-import { Section } from "../components/ui/section";
+import { Section } from "@/components/ui/section";
 import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { RESUME_DATA } from "../data/resume-data";
-import { ProjectCard } from "../components/project-card";
+import { Button } from "@/components/ui/button";
+import { RESUME_DATA } from "@/data/resume-data";
+import { ProjectCard } from "@/components/project-card";
+import { ProjectNewCard } from "@/components/project-new-card";
 import {
   Drawer,
   DrawerClose,
@@ -18,14 +19,13 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-<DrawerTrigger>Open</DrawerTrigger>;
 
 export const metadata: Metadata = {
   title: `${RESUME_DATA.name} | ${RESUME_DATA.about}`,
   description: RESUME_DATA.summary,
 };
 
-export default function Page() {
+export default function ResumePage() {
   return (
     <main className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-16">
       <section className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-6">
@@ -204,10 +204,11 @@ export default function Page() {
 
         <Section className="print-force-new-page scroll-mb-16">
           <h2 className="text-xl font-bold">Projects</h2>
-          <div className="-mx-3 grid grid-cols-1 gap-3 print:grid-cols-3 print:gap-2 md:grid-cols-2 lg:grid-cols-3">
+          {/* <div className="-mx-3 grid grid-cols-1 gap-3 print:grid-cols-3 print:gap-2 md:grid-cols-2 lg:grid-cols-3"> */}
+          <div className="">
             {RESUME_DATA.projects.map((project) => {
               return (
-                <ProjectCard
+                <ProjectNewCard
                   key={project.title}
                   title={project.title}
                   description={project.description}
@@ -219,19 +220,6 @@ export default function Page() {
           </div>
         </Section>
       </section>
-
-      <CommandMenu
-        links={[
-          {
-            url: RESUME_DATA.personalWebsiteUrl,
-            title: "Personal Website",
-          },
-          ...RESUME_DATA.contact.social.map((socilaMediaLink) => ({
-            url: socilaMediaLink.url,
-            title: socilaMediaLink.name,
-          })),
-        ]}
-      />
     </main>
   );
 }
